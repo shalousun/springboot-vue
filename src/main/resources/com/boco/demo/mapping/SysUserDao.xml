@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boco.demo.dao.SysUserDao">
+
+    <!--保存数据selectKey若启用则添加成功后id会自动返回-->
+	<insert id="save" parameterType="SysUser">
+	<!-- <selectKey resultType="int" keyProperty="id" order="AFTER">-->
+		<!--	SELECT LAST_INSERT_ID()-->
+	<!--	 </selectKey>-->
+		insert into sys_user(
+			staff_id,
+			real_name,
+			org_id,
+			department_code,
+			name,
+			password,
+			problem,
+			answer,
+			insert_operator,
+			insert_datetime,
+			last_modify_operator,
+			last_modify_datetime,
+			del_flag,
+			memo,
+			post
+		) values (
+			#{staffId},
+			#{realName},
+			#{orgId},
+			#{departmentCode},
+			#{name},
+			#{password},
+			#{problem},
+			#{answer},
+			#{insertOperator},
+			#{insertDatetime},
+			#{lastModifyOperator},
+			#{lastModifyDatetime},
+			#{delFlag},
+			#{memo},
+			#{post}
+		)
+	</insert>
+	<!--批量插入数据-->
+	<insert id="batchSave" parameterType="java.util.List">
+        insert into sys_user(
+			staff_id,
+			real_name,
+			org_id,
+			department_code,
+			name,
+			password,
+			problem,
+			answer,
+			insert_operator,
+			insert_datetime,
+			last_modify_operator,
+			last_modify_datetime,
+			del_flag,
+			memo,
+			post
+		) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+			#{item.staffId},
+			#{item.realName},
+			#{item.orgId},
+			#{item.departmentCode},
+			#{item.name},
+			#{item.password},
+			#{item.problem},
+			#{item.answer},
+			#{item.insertOperator},
+			#{item.insertDatetime},
+			#{item.lastModifyOperator},
+			#{item.lastModifyDatetime},
+			#{item.delFlag},
+			#{item.memo},
+			#{item.post}
+            )
+        </foreach>
+	</insert>
+
+    <!--更新数据-->
+    <update id="update" parameterType="SysUser">
+    	update sys_user
+		<trim prefix="set" suffixOverrides=",">
+			<if test="staffId!=null">staff_id = #{staffId},</if>
+			<if test="realName!=null">real_name = #{realName},</if>
+			<if test="orgId!=null">org_id = #{orgId},</if>
+			<if test="departmentCode!=null">department_code = #{departmentCode},</if>
+			<if test="name!=null">name = #{name},</if>
+			<if test="password!=null">password = #{password},</if>
+			<if test="problem!=null">problem = #{problem},</if>
+			<if test="answer!=null">answer = #{answer},</if>
+			<if test="insertOperator!=null">insert_operator = #{insertOperator},</if>
+			<if test="insertDatetime!=null">insert_datetime = #{insertDatetime},</if>
+			<if test="lastModifyOperator!=null">last_modify_operator = #{lastModifyOperator},</if>
+			<if test="lastModifyDatetime!=null">last_modify_datetime = #{lastModifyDatetime},</if>
+			<if test="delFlag!=null">del_flag = #{delFlag},</if>
+			<if test="memo!=null">memo = #{memo},</if>
+			<if test="post!=null">post = #{post},</if>
+		</trim>
+    	where id = #{id}
+    </update>
+
+    <!--删除数据-->
+	<delete id="delete" parameterType="int">
+		delete from sys_user where id = #{id}
+	</delete>
+
+    <!--根据id返回一条记录-->
+	<select id="queryById" parameterType="int" resultType="SysUser">
+	    select 
+			id,
+			staff_id,
+			real_name,
+			org_id,
+			department_code,
+			name,
+			password,
+			problem,
+			answer,
+			insert_operator,
+			insert_datetime,
+			last_modify_operator,
+			last_modify_datetime,
+			del_flag,
+			memo,
+			post
+ 		from sys_user
+		where id=#{id}
+	</select>
+
+	<!--分页记录-->
+    <select id="queryPage" resultType="SysUser">
+        select 
+			id,
+			staff_id,
+			real_name,
+			org_id,
+			department_code,
+			name,
+			password,
+			problem,
+			answer,
+			insert_operator,
+			insert_datetime,
+			last_modify_operator,
+			last_modify_datetime,
+			del_flag,
+			memo,
+			post
+ 		from sys_user
+    </select>
+
+    <!--查询结果装到listMap中返回-->
+    <select id="queryToListMap" resultType="map" parameterType="hashmap">
+        select 
+			id,
+			staff_id,
+			real_name,
+			org_id,
+			department_code,
+			name,
+			password,
+			problem,
+			answer,
+			insert_operator,
+			insert_datetime,
+			last_modify_operator,
+			last_modify_datetime,
+			del_flag,
+			memo,
+			post
+ 		from sys_user
+    </select>
+</mapper>

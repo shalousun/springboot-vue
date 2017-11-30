@@ -1,0 +1,38 @@
+#Spring boot application.yml
+
+
+spring:
+  #profiles : dev
+  datasource:
+    name: mydb
+    type: com.alibaba.druid.pool.DruidDataSource
+    #jdbc:mysql://localhost:3306/cookbook?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/project_boot?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    minIdle: 1
+    maxActive: 2
+    initialSize: 1
+    timeBetweenEvictionRunsMillis: 3000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 'ZTM' FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+
+
+mybatis:
+  type-aliases-package: com.boco.demo
+  config-location: classpath:/mybatis-config.xml
+  mapper-locations: classpath*:com/boco/demo/mapping/*.xml
+
+# server config
+server:
+  port: 8080
+  undertow:
+   accesslog:
+    enabled: true
+    dir: ../logs
+logging:
+  path: ../logs
