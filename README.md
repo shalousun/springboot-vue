@@ -1,3 +1,3 @@
 springboot-vue依赖于我当前自己编写的项目脚手架ApplicationPower中的Common-util模块，ApplicationPower的地址为：https://gitee.com/sunyurepository/ApplicationPower
 
-如有疑问可添加570436465该群
+如有疑问可添加170651381该群
